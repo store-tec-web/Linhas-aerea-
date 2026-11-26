@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Maria aereo – Explore the World</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0a1f44;--navy2:#12305f;--sky:#6ec1ff;--white:#fff;--bg:#f4f8fd;--card:#fff;--text:#0a1f44;--muted:#52688a;--shadow:0 20px 50px -20px rgba(10,31,68,.35);
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#071530;--card:#0f2548;--text:#eaf3ff;--muted:#9db4d6;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#071530;--card:#0f2548;--text:#eaf3ff;--muted:#9db4d6;color-scheme:dark}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(84px + env(safe-area-inset-top,0px))}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Manrope,system-ui,sans-serif;line-height:1.6;overflow-x:hidden}
+h1,h2,h3,.logo{font-family:Sora,system-ui,sans-serif;margin:0}
+a{color:inherit;text-decoration:none}
+svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+
+/* Header */
+header{position:fixed;inset:0 0 auto 0;z-index:50;padding:calc(14px + env(safe-area-inset-top,0px)) clamp(16px,4vw,56px) 14px;display:flex;align-items:center;justify-content:space-between;color:#fff;transition:background .3s,box-shadow .3s,backdrop-filter .3s}
+header.scrolled{background:rgba(10,31,68,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 10px 30px -15px rgba(0,0,0,.5)}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.25rem;letter-spacing:.02em}
+.logo span{display:grid;place-items:center;width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,var(--sky),#2f7cf6)}
+nav ul{display:flex;gap:6px;list-style:none;margin:0;padding:0}
+nav a{display:block;padding:8px 16px;border-radius:99px;font-weight:500;font-size:.95rem;opacity:.85;transition:.25s}
+nav a:hover,nav a.active{background:rgba(255,255,255,.14);opacity:1}
+.actions{display:flex;gap:10px;align-items:center}
+.icon-btn{width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.08);color:#fff;display:grid;place-items:center;cursor:pointer;position:relative;transition:.25s}
+.icon-btn:hover{background:#fff;color:var(--navy);transform:translateY(-2px)}
+.dot{position:absolute;top:9px;right:10px;width:8px;height:8px;border-radius:50%;background:#ff6b6b;border:2px solid var(--navy)}
+.burger{display:none}
+
+/* Hero */
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;color:#fff;overflow:hidden;background:linear-gradient(180deg,#0a1f44 0%,#16417f 45%,#6ec1ff 100%)}
+.scene{position:absolute;inset:0;width:100%;height:100%}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,21,48,.72),rgba(7,21,48,.05) 70%)}
+.giant{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);font:800 clamp(5rem,23vw,22rem)/1 Sora,sans-serif;letter-spacing:-.04em;color:transparent;-webkit-text-stroke:2px rgba(255,255,255,.22);background:linear-gradient(180deg,rgba(255,255,255,.2),rgba(255,255,255,0));-webkit-background-clip:text;background-clip:text;z-index:1;white-space:nowrap;user-select:none;animation:fade 1.6s .1s both}
+.content{position:relative;z-index:2;padding:130px clamp(20px,6vw,96px) 90px;max-width:900px}
+.tag{display:inline-flex;gap:8px;align-items:center;padding:6px 14px;border-radius:99px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(8px);font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}
+h1{font-size:clamp(2.6rem,7vw,5.6rem);line-height:1.02;font-weight:800;margin:22px 0 6px;letter-spacing:-.02em}
+.sub{font:600 clamp(1.4rem,3.4vw,2.4rem)/1.2 Sora,sans-serif;color:var(--sky);letter-spacing:.3em;margin-bottom:22px}
+.lead{max-width:520px;color:rgba(255,255,255,.85);font-size:1.08rem;margin:0 0 34px}
+.btn{display:inline-flex;gap:10px;align-items:center;padding:16px 30px;border-radius:99px;border:0;font:600 1rem Manrope,sans-serif;cursor:pointer;color:var(--navy);background:#fff;box-shadow:0 14px 30px -10px rgba(110,193,255,.7);transition:.3s}
+.btn:hover{transform:translateY(-3px);background:var(--sky);box-shadow:0 20px 40px -12px rgba(110,193,255,.9)}
+.btn svg{transition:transform .3s}.btn:hover svg{transform:translateX(5px)}
+.stats{display:flex;gap:34px;margin-top:54px;flex-wrap:wrap}
+.stats b{display:block;font:800 1.7rem Sora,sans-serif}.stats small{color:rgba(255,255,255,.7)}
+.plane{animation:fly 9s ease-in-out infinite alternate}
+@keyframes fly{to{transform:translate(-30px,-14px) rotate(-1.5deg)}}
+.reveal{opacity:0;transform:translateY(26px);animation:up .9s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:calc(var(--d,0)*.12s + .15s)}
+@keyframes up{to{opacity:1;transform:none}}@keyframes fade{from{opacity:0}}
+.in{opacity:0;transform:translateY(30px);transition:.8s cubic-bezier(.2,.7,.2,1)}.in.show{opacity:1;transform:none}
+
+/* Sections */
+section.s{padding:96px clamp(20px,6vw,96px)}
+.wrap{max-width:1180px;margin:0 auto}
+.eyebrow{color:#2f7cf6;font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:.8rem}
+h2{font-size:clamp(1.9rem,4vw,3rem);margin:8px 0 14px;letter-spacing:-.01em}
+.muted{color:var(--muted);max-width:560px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;margin-top:44px}
+.card{background:var(--card);border-radius:24px;overflow:hidden;box-shadow:var(--shadow);transition:.35s}
+.card:hover{transform:translateY(-8px)}
+.card .pic{height:190px;position:relative}
+.card .body{padding:22px}
+.card h3{font-size:1.2rem}.card p{color:var(--muted);margin:6px 0 14px;font-size:.95rem}
+.price{display:flex;justify-content:space-between;align-items:center;font-weight:600}
+.price a{color:#2f7cf6;display:flex;gap:6px;align-items:center}
+.band{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff}
+.band .muted{color:#b9cdea}
+.contact{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px}
+footer{padding:30px;text-align:center;color:var(--muted);font-size:.9rem}
+
+/* Mobile */
+@media(max-width:900px){
+ .burger{display:grid}
+ nav{position:fixed;inset:0 0 0 auto;width:min(78vw,320px);background:rgba(10,31,68,.96);backdrop-filter:blur(18px);padding:calc(90px + env(safe-area-inset-top,0px)) 24px 24px;transform:translateX(100%);transition:transform .4s cubic-bezier(.2,.7,.2,1);z-index:-1}
+ nav.open{transform:none}
+ nav ul{flex-direction:column;gap:4px}nav a{font-size:1.1rem;padding:14px 18px}
+ .giant{top:38%}
+ .hero::after{background:linear-gradient(180deg,rgba(7,21,48,.55),rgba(7,21,48,.3))}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal,.in{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<header id="top">
+ <a href="#home" class="logo"><span><svg class="i" viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg></span>Maria aereo</a>
+ <nav id="nav"><ul>
+  <li><a href="#home" class="active">Home</a></li><li><a href="#about">About</a></li><li><a href="#discover">Discover</a></li>
+  <li><a href="#ticket">Ticket</a></li><li><a href="#help">Help</a></li><li><a href="#contact">Contact Us</a></li>
+ </ul></nav>
+ <div class="actions">
+  <button class="icon-btn" aria-label="Notifications"><svg class="i" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><i class="dot"></i></button>
+  <button class="icon-btn" aria-label="Profile"><svg class="i" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></button>
+  <button class="icon-btn burger" id="burger" aria-label="Menu" aria-expanded="false"><svg class="i" id="bi" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+ </div>
+</header>
+
+<main>
+<section class="hero" id="home">
+ <svg class="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <defs>
+   <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3d8fd6"/><stop offset="1" stop-color="#0d3470"/></linearGradient>
+   <linearGradient id="m1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a5f9e"/><stop offset="1" stop-color="#143a72"/></linearGradient>
+   <linearGradient id="m2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#17407d"/><stop offset="1" stop-color="#0a2658"/></linearGradient>
+   <radialGradient id="sun" cx=".75" cy=".42" r=".5"><stop offset="0" stop-color="#fff" stop-opacity=".75"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#sun)"/>
+  <g fill="#fff" opacity=".35"><ellipse cx="300" cy="200" rx="170" ry="22"/><ellipse cx="1250" cy="150" rx="220" ry="26"/><ellipse cx="900" cy="330" rx="140" ry="16"/></g>
+  <path d="M0 610 L180 470 L300 540 L470 380 L640 560 L760 500 L900 620 L900 900 L0 900Z" fill="url(#m1)"/>
+  <path d="M0 680 L140 590 L260 650 L420 540 L580 670 L700 640 L820 720 L820 900 L0 900Z" fill="url(#m2)"/>
+  <path d="M0 700 Q400 650 800 700 T1600 690 V900 H0Z" fill="url(#sea)"/>
+  <g stroke="#fff" stroke-opacity=".25" stroke-width="2" fill="none"><path d="M900 760h120M1100 800h180M1350 740h110M760 830h150"/></g>
+  <g class="plane" transform="translate(1010 270) rotate(-12) scale(1.25)">
+   <path d="M20 60 L300 52 Q372 54 392 70 Q372 86 300 88 L20 80Z" fill="#fff"/>
+   <path d="M300 52 Q350 56 380 66 L300 62Z" fill="#cfe6ff"/>
+   <path d="M150 74 L70 190 L110 192 L220 82Z" fill="#e4f0ff"/>
+   <path d="M150 62 L90 -30 L130 -28 L215 58Z" fill="#cfe3fa"/>
+   <path d="M30 62 L8 8 L36 10 L70 60Z" fill="#6ec1ff"/>
+   <g fill="#0a1f44" opacity=".55"><circle cx="330" cy="68" r="4"/><circle cx="305" cy="68" r="4"/><circle cx="280" cy="68" r="4"/><circle cx="255" cy="68" r="4"/><circle cx="230" cy="68" r="4"/></g>
+   <ellipse cx="150" cy="104" rx="30" ry="12" fill="#b6d3f2"/>
+  </g>
+ </svg>
+ <div class="giant" aria-hidden="true">DISCOVER</div>
+ <div class="content">
+  <span class="tag reveal" style="--d:0">Premium travel agency</span>
+  <h1 class="reveal" style="--d:1">EXPLORE<br>THE WORLD</h1>
+  <div class="sub reveal" style="--d:2">WITH US</div>
+  <p class="lead reveal" style="--d:3">Handpicked flights, boutique stays and seamless itineraries — from the fjords of Norway to the beaches of Bali. We plan every detail, so you can simply arrive.</p>
+  <a class="btn reveal" style="--d:4" href="#discover">Explore More <svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  <div class="stats reveal" style="--d:5"><div><b>120+</b><small>Destinations</small></div><div><b>48k</b><small>Happy travelers</small></div><div><b>4.9★</b><small>Average rating</small></div></div>
+ </div>
+</section>
+
+<section class="s" id="about"><div class="wrap in">
+ <div class="eyebrow">About</div><h2>Travel designed around you</h2>
+ <p class="muted">Skyvoyage pairs local experts with smart technology to build trips that feel effortless — flexible bookings, 24/7 concierge support and transparent pricing.</p>
+</div></section>
+
+<section class="s" id="discover" style="padding-top:20px"><div class="wrap in">
+ <div class="eyebrow">Discover</div><h2>Featured destinations</h2>
+ <p class="muted">Seasonal favorites chosen by our travel designers.</p>
+ <div class="grid">
+  <article class="card"><div class="pic" style="background:linear-gradient(160deg,#ffb88c,#de6262 60%,#3a2a6b)"></div><div class="body"><h3>Santorini, Greece</h3><p>Whitewashed villages, caldera sunsets and Aegean sailing.</p><div class="price"><span>from $1,290</span><a href="#ticket">Book <svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div></article>
+  <article class="card"><div class="pic" style="background:linear-gradient(160deg,#a8edea,#4a90d9 60%,#0a1f44)"></div><div class="body"><h3>Swiss Alps</h3><p>Panoramic trains, alpine lakes and cozy chalet stays.</p><div class="price"><span>from $1,780</span><a href="#ticket">Book <svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div></article>
+  <article class="card"><div class="pic" style="background:linear-gradient(160deg,#fceabb,#43c6ac 55%,#0d5a73)"></div><div class="body"><h3>Maldives</h3><p>Overwater villas, turquoise lagoons and private dining.</p><div class="price"><span>from $2,450</span><a href="#ticket">Book <svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div></article>
+ </div>
+</div></section>
+
+<section class="s band" id="ticket"><div class="wrap in">
+ <div class="eyebrow" style="color:var(--sky)">Ticket</div><h2>Flights at the best fares</h2>
+ <p class="muted">Compare airlines, lock in flexible fares and manage every ticket in one place.</p>
+</div></section>
+
+<section class="s" id="help"><div class="wrap in">
+ <div class="eyebrow">Help</div><h2>We’re here, 24/7</h2>
+ <p class="muted">Changes, refunds, visas or baggage — our support team answers in minutes, in your language.</p>
+</div></section>
+
+<section class="s band" id="contact"><div class="wrap in">
+ <div class="eyebrow" style="color:var(--sky)">Contact Us</div><h2>Let’s plan your next trip</h2>
+ <p class="muted">Tell us where you’d like to go and we’ll craft a proposal within 24 hours.</p>
+ <div class="contact"><a class="btn" href="#home">Back to top</a></div>
+</div></section>
+</main>
+<footer>© 2026 Maria aereo. All rights reserved.</footer>
+
+<script>
+(function(){
+ var header=document.getElementById('top'),nav=document.getElementById('nav'),burger=document.getElementById('burger'),bi=document.getElementById('bi');
+ var ICON={open:'<path d="M4 6h16M4 12h16M4 18h16"/>',close:'<path d="M18 6 6 18M6 6l12 12"/>'};
+ function setMenu(o){nav.classList.toggle('open',o);burger.setAttribute('aria-expanded',o);bi.innerHTML=o?ICON.close:ICON.open}
+ burger.addEventListener('click',function(){setMenu(!nav.classList.contains('open'))});
+ nav.addEventListener('click',function(e){if(e.target.closest('a'))setMenu(false)});
+ function onScroll(){header.classList.toggle('scrolled',window.scrollY>40)}
+ window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+ var links=[].slice.call(nav.querySelectorAll('a')),io;
+ if('IntersectionObserver' in window){
+  io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('show')}})},{threshold:.15});
+  [].forEach.call(document.querySelectorAll('.in'),function(el){io.observe(el)});
+  var spy=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id)})}})},{rootMargin:'-45% 0px -50% 0px'});
+  [].forEach.call(document.querySelectorAll('main section[id]'),function(s){spy.observe(s)});
+ }else{[].forEach.call(document.querySelectorAll('.in'),function(el){el.classList.add('show')})}
+})();
+</script>
+</body>
+</html>
